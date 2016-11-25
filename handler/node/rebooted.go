@@ -1,0 +1,54 @@
+package node
+
+import (
+	"github.com/andyxning/eventarbiter/handler"
+	"github.com/andyxning/eventarbiter/models"
+	"k8s.io/kubernetes/pkg/api"
+	"k8s.io/kubernetes/pkg/kubelet/events"
+	"strings"
+)
+
+type rebooted struct {
+	kind             string
+	reason           string
+	alertEventReason string
+}
+
+func NewRebooted() models.EventHandler {
+	return rebooted{
+		kind:             "NODE",
+		reason:           events.NodeRebooted,
+		alertEventReason: "node_rebooted",
+	}
+}
+
+func (rbt rebooted) HandleEvent(sinks []models.Sink, event *api.Event) {
+	if strings.ToUpper(event.InvolvedObject.Kind) == rbt.kind && event.Reason == rbt.reason {
+		var eventAlert = models.NodeEventAlert{
+			Kind:          event.InvolvedObject.Kind,
+			Name:          event.InvolvedObject.Name,
+			Namespace:     event.ObjectMeta.Namespace,
+			Reason:        event.Reason,
+			Message:       event.Message,
+			LastTimestamp: event.LastTimestamp.Local().String(),
+		}
+
+		for _, sink := range sinks {
+			sink.Sink(rbt.kind, eventAlert)
+		}
+	}
+}
+
+func (rbt rebooted) AlertEventReason() string {
+	return rbt.alertEventReason
+}
+
+func (rbt rebooted) Reason() string {
+	return rbt.reason
+}
+
+func init() {
+	rbt := NewRebooted()
+	handler.MustRegisterEventAlertReason(rbt.AlertEventReason(), rbt)
+	handler.RegisterEventReason(rbt.Reason())
+}

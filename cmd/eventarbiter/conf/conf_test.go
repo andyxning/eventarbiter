@@ -1,10 +1,10 @@
 package conf
 
 import (
-	"testing"
-	"runtime"
 	"k8s.io/heapster/common/flags"
 	"net/url"
+	"runtime"
+	"testing"
 )
 
 func TestConfig_validateMaxProcsWithNumCPU(t *testing.T) {
@@ -12,7 +12,7 @@ func TestConfig_validateMaxProcsWithNumCPU(t *testing.T) {
 		MaxProcs: uint(runtime.NumCPU()),
 	}
 
-	if err := testConf.validateMaxProcs(); err != nil{
+	if err := testConf.validateMaxProcs(); err != nil {
 		t.Error("set max procs to max cpu number error")
 	}
 }
@@ -22,7 +22,7 @@ func TestConfig_validateMaxProcsWithNumCPUPlus1(t *testing.T) {
 		MaxProcs: uint(runtime.NumCPU() + 1),
 	}
 
-	if err := testConf.validateMaxProcs(); err == nil{
+	if err := testConf.validateMaxProcs(); err == nil {
 		t.Error("set max procs to max cpu number plus 1 correctly")
 	}
 }

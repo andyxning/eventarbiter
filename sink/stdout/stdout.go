@@ -54,7 +54,6 @@ func (js *stdout) sinkPodEvent(alert models.PodEventAlert) {
 		glog.Errorf("encode pod alert event error. %s. %v", err, alert)
 	}
 
-	glog.Infof("\nTimestamp: %s", time.Now().Local())
 	glog.Info(buf.String())
 }
 
@@ -68,6 +67,5 @@ func (ss *stdout) sinkNodeEvent(alert models.NodeEventAlert) {
 		glog.Errorf("encode node alert event error. %s. %v", err, alert)
 	}
 
-	glog.Info("\nTimestamp: %s", time.Now().Local())
 	glog.Info(buf.String())
 }

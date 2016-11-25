@@ -44,7 +44,7 @@ func (k8s kubernetes) Start(eventChan chan<- *api.Event) {
 					case eventChan <- event:
 						glog.V(3).Infof("%#v", event)
 					default:
-						glog.Errorf("event channel is full. ignoring %v", event)
+						glog.Errorf("event channel is full. ignoring %#v", event)
 					}
 				}
 			}

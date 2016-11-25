@@ -54,6 +54,7 @@ func (cb *callback) sinkPodEvent(alert models.PodEventAlert) {
 	err = common.SendAlert(&buf, cb.url)
 	if err != nil {
 		glog.Errorf("send pod event alert error. %v", alert)
+		return
 	}
 
 	glog.Infof("pod event alert sent. %v", alert)
@@ -71,11 +72,8 @@ func (cb *callback) sinkNodeEvent(alert models.NodeEventAlert) {
 	err = common.SendAlert(&buf, cb.url)
 	if err != nil {
 		glog.Errorf("send node event alert error. %v", alert)
+		return
 	}
 
 	glog.Infof("node event alert sent. %v", alert)
-}
-
-func (cb *callback) Stop() {
-	glog.Infof("stop %s sink", cb.name)
 }

@@ -138,10 +138,6 @@ func main() {
 
 		source.Stop()
 
-		for _, sink := range sinks {
-			sink.Stop()
-		}
-
 		glog.Infoln("stop gracefully")
 		glog.Flush()
 		os.Exit(0)

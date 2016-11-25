@@ -6,7 +6,6 @@ import (
 	"github.com/andyxning/eventarbiter/models"
 	"github.com/golang/glog"
 	"strings"
-	"time"
 )
 
 type stdout struct {
@@ -38,10 +37,6 @@ func (so *stdout) Sink(kind string, alert models.EventAlert) {
 		}
 		glog.Errorf("associate kind node with a none node event alert. %v", alert)
 	}
-}
-
-func (so *stdout) Stop() {
-	glog.Infof("stop stdout sink")
 }
 
 func (js *stdout) sinkPodEvent(alert models.PodEventAlert) {

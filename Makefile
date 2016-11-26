@@ -18,6 +18,6 @@ build: dep fmt vet
 	godep go build -v -ldflags "-X github.com/andyxning/eventarbiter/cmd/eventarbiter/conf.version=$(VERSION) -X github.com/andyxning/eventarbiter/cmd/eventarbiter/conf.commitHash=$(COMMIT_HASH)" -o eventarbiter github.com/andyxning/eventarbiter/cmd/eventarbiter
 
 clean:
-	rm event_arbiter
+	rm eventarbiter
 
-.PHONY: fmt test dep build clean run
+.PHONY: fmt test dep build clean run vet

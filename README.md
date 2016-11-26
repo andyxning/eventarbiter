@@ -5,7 +5,7 @@
 ----
 Kubernetes emits events when some important things happend internally.
 
-For example, when the CPU or Memory pool Kubernetes cluster provides can not satisfy the request application made, an `FailedScheduling` event will be emitted and the message contained in the event will explain what is the reason for the `FailedScheduling` with event message like `pod (busybox-controller-jdaww) failed to fit in any node\nfit failure on node (192.168.0.2): Insufficient cpu\n` or `pod (busybox-controller-jdaww) failed to fit in any node\nfit failure on node (10.3.23.161): Insufficient memory\n`.
+For example, when the CPU or Memory pool Kubernetes cluster provides can not satisfy the request application made, an `FailedScheduling` event will be emitted and the message contained in the event will explain what is the reason for the `FailedScheduling` with event message like `pod (busybox-controller-jdaww) failed to fit in any node\nfit failure on node (192.168.0.2): Insufficient cpu\n` or `pod (busybox-controller-jdaww) failed to fit in any node\nfit failure on node (192.168.0.2): Insufficient memory\n`.
 
 Also, if the application malloc a lot of memory which exceeds the `limit` watermark, kernel OOM Killer will arise and kill processes randomly. Under this circumstance, Kubernetes will emits an `SystemOOM` event with event message like `System OOM encountered.`
 

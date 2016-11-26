@@ -56,3 +56,7 @@ The normal commands to start an instance of `eventerarbiter` will be
 * production
   * `eventarbiter -source='kubernetes:http://127.0.0.1:8080?inClusterConfig=false' -logtostderr=true -event_filter=pod_unhealthy -max_procs=3 -sink=callback:http://127.0.0.1:3086`
   * There is also a faked http service in `script/dev` listening in `3086` with `/` endpoints. 
+
+### Build
+* make build
+  * Note: `eventarbiter` requires Go1.7

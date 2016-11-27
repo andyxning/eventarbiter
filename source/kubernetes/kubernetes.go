@@ -17,6 +17,7 @@ const (
 type kubernetes struct {
 	fetchTicker *time.Ticker
 	upstream    *backend.KubernetesEventSource
+	stopChan    chan struct{}
 }
 
 func MustNewKubernetes(uri *url.URL) models.Source {
@@ -28,6 +29,7 @@ func MustNewKubernetes(uri *url.URL) models.Source {
 	return kubernetes{
 		fetchTicker: time.NewTicker(fetchInterval),
 		upstream:    upstream,
+		stopChan:    make(chan struct{}),
 	}
 }
 
@@ -47,11 +49,18 @@ func (k8s kubernetes) Start(eventChan chan<- *api.Event) {
 						glog.Errorf("event channel is full. ignoring %#v", event)
 					}
 				}
+			case <-k8s.stopChan:
+				glog.Info("stop source kubernetes")
+				close(eventChan)
+				k8s.stopChan <- struct{}{}
+				return
 			}
 		}
 	}()
 }
 
 func (k8s kubernetes) Stop() {
-	// Nothing to do now.
+	k8s.stopChan <- struct{}{}
+	<-k8s.stopChan
+	glog.Infof("source kubernetes stopped")
 }

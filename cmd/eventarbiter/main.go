@@ -16,6 +16,7 @@ import (
 	"k8s.io/kubernetes/pkg/api"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -76,7 +77,7 @@ func filterAlertEvent() {
 	glog.V(2).Infof("listening Kubernetes event: %s", strings.Join(eventReasons, ","))
 }
 
-func StartMain(sinks []models.Sink, eventChan <-chan *api.Event) {
+func StartMain(sinks []models.Sink, eventChan <-chan *api.Event, stopWG *sync.WaitGroup) {
 	go func() {
 		for event := range eventChan {
 			if _, exists := handler.EventReasons[event.Reason]; exists {
@@ -84,7 +85,14 @@ func StartMain(sinks []models.Sink, eventChan <-chan *api.Event) {
 
 				for alertEventReason, eventHandler := range handler.EventAlertHandlers {
 					glog.V(2).Infof("sending event to %s", alertEventReason)
-					go eventHandler.HandleEvent(sinks, event)
+					stopWG.Add(1)
+
+					// range variable eventHandler can not be captured by func literal
+					go func(eventHandler models.EventHandler) {
+						defer stopWG.Done()
+
+						eventHandler.HandleEvent(sinks, event)
+					}(eventHandler)
 				}
 			}
 		}
@@ -129,7 +137,8 @@ func main() {
 	eventChan := make(chan *api.Event, conf.Conf.EventChanLength)
 	source.Start(eventChan)
 
-	StartMain(sinks, eventChan)
+	stopWG := sync.WaitGroup{}
+	StartMain(sinks, eventChan, &stopWG)
 
 	select {
 	case exitSignal := <-signal.ExitChan:
@@ -137,6 +146,19 @@ func main() {
 		glog.Flush()
 
 		source.Stop()
+
+		glog.Info("stop sink")
+		for {
+			if len(eventChan) != 0 {
+				time.Sleep(200 * time.Millisecond)
+				glog.Infof("waiting for event chan to be empty")
+				continue
+			}
+
+			break
+		}
+		stopWG.Wait()
+		glog.Info("sink stopped")
 
 		glog.Infoln("stop gracefully")
 		glog.Flush()

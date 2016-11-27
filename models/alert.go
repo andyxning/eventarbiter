@@ -5,13 +5,14 @@ import "fmt"
 type EventAlert interface{}
 
 type PodEventAlert struct {
-	Kind          string `json:"kind"`
-	Name          string `json:"name"`
-	Namespace     string `json:"namespace"`
-	Host          string `json:"host"`
-	Reason        string `json:"reason"`
-	LastTimestamp string `json:"last_timestamp"`
-	Message       string `json:"message"`
+	Kind          string            `json:"kind"`
+	Name          string            `json:"name"`
+	Namespace     string            `json:"namespace"`
+	Host          string            `json:"host"`
+	Reason        string            `json:"reason"`
+	LastTimestamp string            `json:"last_timestamp"`
+	Message       string            `json:"message"`
+	Environment   map[string]string `json:"environment"`
 }
 
 func (pea PodEventAlert) String() string {
@@ -23,10 +24,11 @@ func (pea PodEventAlert) String() string {
 "Reason": %s
 "LastTimestamp": %s
 "Message": %s
+"Environment": %s
 	`
 
 		return fmt.Sprintf(formatter, pea.Kind, pea.Name, pea.Namespace,
-			pea.Reason, pea.LastTimestamp, pea.Message,
+			pea.Reason, pea.LastTimestamp, pea.Message, pea.Environment,
 		)
 	}
 
@@ -38,20 +40,22 @@ func (pea PodEventAlert) String() string {
 "Reason": %s
 "LastTimestamp": %s
 "Message": %s
+"Environment": %s
 	`
 
 	return fmt.Sprintf(formatter, pea.Kind, pea.Name, pea.Namespace,
-		pea.Host, pea.Reason, pea.LastTimestamp, pea.Message,
+		pea.Host, pea.Reason, pea.LastTimestamp, pea.Message, pea.Environment,
 	)
 }
 
 type NodeEventAlert struct {
-	Kind          string `json:"kind"`
-	Name          string `json:"name"`
-	Namespace     string `json:"namespace"`
-	Reason        string `json:"reason"`
-	LastTimestamp string `json:"last_timestamp"`
-	Message       string `json:"message"`
+	Kind          string            `json:"kind"`
+	Name          string            `json:"name"`
+	Namespace     string            `json:"namespace"`
+	Reason        string            `json:"reason"`
+	LastTimestamp string            `json:"last_timestamp"`
+	Message       string            `json:"message"`
+	Environment   map[string]string `json:"environment"`
 }
 
 func (nea NodeEventAlert) String() string {
@@ -62,9 +66,10 @@ func (nea NodeEventAlert) String() string {
 "Reason": %s
 "LastTimestamp": %s
 "Message": %s
+"Environment": %s
 	`
 
 	return fmt.Sprintf(formatter, nea.Kind, nea.Name,
-		nea.Namespace, nea.Reason, nea.LastTimestamp, nea.Message,
+		nea.Namespace, nea.Reason, nea.LastTimestamp, nea.Message, nea.Environment,
 	)
 }

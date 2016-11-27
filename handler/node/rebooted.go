@@ -1,6 +1,7 @@
 package node
 
 import (
+	"github.com/andyxning/eventarbiter/cmd/eventarbiter/conf"
 	"github.com/andyxning/eventarbiter/handler"
 	"github.com/andyxning/eventarbiter/models"
 	"k8s.io/kubernetes/pkg/api"
@@ -35,6 +36,7 @@ func (rbt rebooted) HandleEvent(sinks []models.Sink, event *api.Event) {
 			Reason:        event.Reason,
 			Message:       event.Message,
 			LastTimestamp: event.LastTimestamp.Local().String(),
+			Environment:   conf.Conf.Environment.Value,
 		}
 
 		for _, sink := range sinks {

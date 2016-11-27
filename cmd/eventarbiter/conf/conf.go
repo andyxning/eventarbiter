@@ -33,6 +33,8 @@ type Config struct {
 	FilteredAlertEventReasons flag.List
 
 	EventChanLength int
+
+	Environment flag.Map
 }
 
 func (conf Config) Validate() error {

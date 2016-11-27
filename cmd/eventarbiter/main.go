@@ -33,6 +33,8 @@ func mergeCmdFlags(conf *conf.Config) {
 	flag.Var(&conf.Sinks, "sink", "sink(s) that receive event alert")
 	flag.Var(&conf.FilteredAlertEventReasons, "event_filter",
 		"event alert reasons that should be filtered. Seperated by comma")
+	flag.Var(&conf.Environment, "environment", "comma seperated key-value pairs. This map will be"+
+		" as the 'Environment' field in callback http request body along side event alert.")
 
 	flag.Parse()
 

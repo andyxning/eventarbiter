@@ -49,6 +49,7 @@ For `sink` argument, the usage is like [`eventer` sink](https://github.com/kuber
   * `--sink=callback:CALLBACK_URL`
   * `CALLBACK_URL` should return HTTP `200` or `201` for success. All other HTTP return status
   code will be considered failure.
+
 For `environment` argument, you can set a comma separated key-value pairs as an `Environment` map
  field in event alert object. This can be used as a `context` to pass whatever you want.
 

@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+const (
+	NodeOOMReason = "SystemOOM"
+)
+
 type oom struct {
 	kind             string
 	reason           string
@@ -16,7 +20,7 @@ type oom struct {
 func NewOOM() models.EventHandler {
 	return oom{
 		kind:             "NODE",
-		reason:           "SystemOOM",
+		reason:           NodeOOMReason,
 		alertEventReason: "node_systemoom",
 	}
 }

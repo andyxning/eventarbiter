@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+const (
+	NodeRebootedReason = events.NodeRebooted
+)
+
 type rebooted struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type rebooted struct {
 func NewRebooted() models.EventHandler {
 	return rebooted{
 		kind:             "NODE",
-		reason:           events.NodeRebooted,
+		reason:           NodeRebootedReason,
 		alertEventReason: "node_rebooted",
 	}
 }

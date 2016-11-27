@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+const (
+	PodFailedSyncReason = events.FailedSync
+)
+
 type failedSync struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type failedSync struct {
 func NewFailedSync() models.EventHandler {
 	return failedSync{
 		kind:             "POD",
-		reason:           events.FailedSync,
+		reason:           PodFailedSyncReason,
 		alertEventReason: "pod_failedsync",
 	}
 }

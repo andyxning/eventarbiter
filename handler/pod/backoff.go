@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+const (
+	PodBackOffReason = events.BackOffStartContainer
+)
+
 type backOff struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type backOff struct {
 func NewBackOff() models.EventHandler {
 	return backOff{
 		kind:             "POD",
-		reason:           events.BackOffStartContainer,
+		reason:           PodBackOffReason,
 		alertEventReason: "pod_backoff",
 	}
 }

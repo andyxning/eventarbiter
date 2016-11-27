@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+const (
+	PodInsufficientCPUReason = "FailedScheduling"
+)
+
 type insufficientCPU struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type insufficientCPU struct {
 func NewInsufficientCPU() models.EventHandler {
 	return insufficientCPU{
 		kind:   "POD",
-		reason: "FailedScheduling",
+		reason: PodInsufficientCPUReason,
 		// TODO(andyxning): This should be replaced with more scalable reference instead of hard
 		// code.
 		keyWord:          "Insufficient CPU",

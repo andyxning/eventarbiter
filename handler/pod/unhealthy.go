@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+const (
+	PodUnhealthyReason = events.ContainerUnhealthy
+)
+
 type unhealthy struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type unhealthy struct {
 func NewUnhealthy() models.EventHandler {
 	return unhealthy{
 		kind:             "POD",
-		reason:           events.ContainerUnhealthy,
+		reason:           PodUnhealthyReason,
 		alertEventReason: "pod_unhealthy",
 	}
 }

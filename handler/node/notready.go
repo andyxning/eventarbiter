@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+const (
+	NodeNotReadyReason = events.NodeNotReady
+)
+
 type notReady struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type notReady struct {
 func newNotReady() models.EventHandler {
 	return notReady{
 		kind:             "NODE",
-		reason:           events.NodeNotReady,
+		reason:           NodeNotReadyReason,
 		alertEventReason: "node_notready",
 	}
 }

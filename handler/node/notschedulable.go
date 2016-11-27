@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+const (
+	NodeNotSchedulableReason = events.NodeNotSchedulable
+)
+
 type notSchedulable struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type notSchedulable struct {
 func NewNotSchedulable() models.EventHandler {
 	return notReady{
 		kind:             "NODE",
-		reason:           events.NodeNotSchedulable,
+		reason:           NodeNotSchedulableReason,
 		alertEventReason: "node_notschedulable",
 	}
 }

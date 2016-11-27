@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+const (
+	PodInsufficientMemoryReason = "FailedScheduling"
+)
+
 type insufficientMemory struct {
 	kind             string
 	reason           string
@@ -17,7 +21,7 @@ type insufficientMemory struct {
 func NewInsufficientMemory() models.EventHandler {
 	return insufficientMemory{
 		kind:   "POD",
-		reason: "FailedScheduling",
+		reason: PodInsufficientMemoryReason,
 		// TODO(andyxning): This should be replaced with more scalable reference instead of hard
 		// code.
 		keyWord:          "Insufficient Memory",

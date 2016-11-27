@@ -47,6 +47,8 @@ For `sink` argument, the usage is like [`eventer` sink](https://github.com/kuber
 * `stdout` can log the event alarm to `stdout` with `json` format.
 * `callback` is a HTTP API with `POST` method enabled. The event alarm will be `POST`ed to the `callback` URL.
   * `--sink=callback:CALLBACK_URL`
+  * `CALLBACK_URL` should return HTTP `200` or `201` for success. All other HTTP return status
+  code will be considered failure.
 
 Additionally, `eventerarbiter` also supports an `event_filter` argument. Event alarm reasons specified in `event_filter` will be filtered out from `eventarbiter`.
 

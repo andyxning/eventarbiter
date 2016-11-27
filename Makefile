@@ -20,4 +20,4 @@ build: dep fmt vet
 clean:
 	rm eventarbiter
 
-.PHONY: fmt test dep build clean run vet
+.PHONY: fmt test dep build clean vet

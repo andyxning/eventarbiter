@@ -1,4 +1,4 @@
-package handler
+package pod
 
 import (
 	"github.com/andyxning/eventarbiter/handler"

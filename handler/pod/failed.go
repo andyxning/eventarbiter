@@ -30,7 +30,7 @@ func NewFailed() models.EventHandler {
 func (fd failed) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == fd.kind && event.Reason == fd.reason {
 		var eventAlert = models.PodEventAlert{
-			Kind:          event.InvolvedObject.Kind,
+			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,
 			Namespace:     event.ObjectMeta.Namespace,
 			Host:          event.Source.Host,

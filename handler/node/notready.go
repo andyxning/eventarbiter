@@ -30,7 +30,7 @@ func newNotReady() models.EventHandler {
 func (nr notReady) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == nr.kind && event.Reason == nr.reason {
 		var eventAlert = models.NodeEventAlert{
-			Kind:          event.InvolvedObject.Kind,
+			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,
 			Namespace:     event.ObjectMeta.Namespace,
 			Reason:        event.Reason,

@@ -30,7 +30,7 @@ func NewRebooted() models.EventHandler {
 func (rbt rebooted) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == rbt.kind && event.Reason == rbt.reason {
 		var eventAlert = models.NodeEventAlert{
-			Kind:          event.InvolvedObject.Kind,
+			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,
 			Namespace:     event.ObjectMeta.Namespace,
 			Reason:        event.Reason,

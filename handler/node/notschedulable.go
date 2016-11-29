@@ -30,7 +30,7 @@ func NewNotSchedulable() models.EventHandler {
 func (ns notSchedulable) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == ns.kind && event.Reason == ns.reason {
 		var eventAlert = models.NodeEventAlert{
-			Kind:          event.InvolvedObject.Kind,
+			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,
 			Namespace:     event.ObjectMeta.Namespace,
 			Reason:        event.Reason,

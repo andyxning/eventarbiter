@@ -30,7 +30,7 @@ func NewUnhealthy() models.EventHandler {
 func (uh unhealthy) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == uh.kind && event.Reason == uh.reason {
 		var eventAlert = models.PodEventAlert{
-			Kind:          event.InvolvedObject.Kind,
+			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,
 			Namespace:     event.ObjectMeta.Namespace,
 			Host:          event.Source.Host,

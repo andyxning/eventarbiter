@@ -34,7 +34,7 @@ func (im insufficientMemory) HandleEvent(sinks []models.Sink, event *api.Event) 
 	if strings.ToUpper(event.InvolvedObject.Kind) == im.kind && event.Reason == im.reason &&
 		strings.Contains(event.Message, im.keyWord) {
 		var eventAlert = models.PodEventAlert{
-			Kind:          event.InvolvedObject.Kind,
+			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,
 			Namespace:     event.ObjectMeta.Namespace,
 			Reason:        event.Reason,

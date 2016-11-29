@@ -36,6 +36,8 @@ func (so *stdout) Sink(kind string, alert models.EventAlert) {
 			return
 		}
 		glog.Errorf("associate kind node with a none node event alert. %v", alert)
+	default:
+		glog.Errorf("unknown event alert. %#v", alert)
 	}
 }
 

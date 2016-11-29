@@ -41,19 +41,18 @@ There are already some projects to do somthing about Kubernetes events.
 ----
 Just like `eventer` in `Heapster` project. `eventarbiter` supports the `source` and `sink` command line arguments.
 
-For `source` argument, the usage is **the same as [what it does in `eventer`](https://github.com/kubernetes/heapster/blob/master/docs/source-configuration.md)**.
-
-For `sink` argument, the usage is like [`eventer` sink](https://github.com/kubernetes/heapster/blob/master/docs/sink-configuration.md). `eventerarbiter` supports `stdout` and `callback`.
-* `stdout` can log the event alarm to `stdout` with `json` format.
-* `callback` is a HTTP API with `POST` method enabled. The event alarm will be `POST`ed to the `callback` URL.
-  * `--sink=callback:CALLBACK_URL`
-  * `CALLBACK_URL` should return HTTP `200` or `201` for success. All other HTTP return status
-  code will be considered failure.
-
-For `environment` argument, you can set a comma separated key-value pairs as an `Environment` map
- field in event alert object. This can be used as a `context` to pass whatever you want.
-
-Additionally, `eventerarbiter` also supports an `event_filter` argument. Event alarm reasons specified in `event_filter` will be filtered out from `eventarbiter`.
+* Argument
+  * `source`
+    * the usage is **the same as [what it does in `eventer`](https://github.com/kubernetes/heapster/blob/master/docs/source-configuration.md)**.
+  * `sink` argument, the usage is like [`eventer` sink](https://github.com/kubernetes/heapster/blob/master/docs/sink-configuration.md). `eventerarbiter` supports `stdout` and `callback`.
+    * `stdout` can log the event alarm to `stdout` with `json` format.
+    * `callback` is a HTTP API with `POST` method enabled. The event alarm will be `POST`ed to the `callback` URL.
+      * `--sink=callback:CALLBACK_URL`
+      * `CALLBACK_URL` should return HTTP `200` or `201` for success. All other HTTP return status code will be considered failure.
+  * `environment`
+    * a comma separated key-value pairs as an `Environment` map field in event alert object. This can be used as a `context` to pass whatever you want.
+  * `event_filter`
+    * Event alarm reasons specified in `event_filter` will be filtered out from `eventarbiter`.
 
 The normal commands to start an instance of `eventerarbiter` will be
 * dev

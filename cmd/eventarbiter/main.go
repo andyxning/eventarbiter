@@ -86,7 +86,7 @@ func StartMain(sinks []models.Sink, eventChan <-chan *api.Event, stopWG *sync.Wa
 				glog.Infof("got %s. %#v", event.Reason, event)
 
 				for alertEventReason, eventHandler := range handler.EventAlertHandlers {
-					glog.V(2).Infof("sending event to %s", alertEventReason)
+					glog.V(3).Infof("sending event to %s", alertEventReason)
 					stopWG.Add(1)
 
 					// range variable eventHandler can not be captured by func literal

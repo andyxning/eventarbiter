@@ -1,11 +1,12 @@
 package common
 
 import (
-	"github.com/golang/glog"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	"github.com/golang/glog"
 )
 
 const (
@@ -25,7 +26,10 @@ func SendAlert(alert io.Reader, url string) error {
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
-
+	if err != nil {
+		glog.Errorf("perform http request error. %s", err)
+		return err
+	}
 	defer resp.Body.Close()
 
 	_, err = ioutil.ReadAll(resp.Body)

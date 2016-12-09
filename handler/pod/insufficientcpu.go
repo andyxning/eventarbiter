@@ -25,14 +25,14 @@ func NewInsufficientCPU() models.EventHandler {
 		reason: PodInsufficientCPUReason,
 		// TODO(andyxning): This should be replaced with more scalable reference instead of hard
 		// code.
-		keyWord:          "Insufficient CPU",
+		keyWord:          "insufficient cpu",
 		alertEventReason: "pod_insufficentcpu",
 	}
 }
 
 func (ic insufficientCPU) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == ic.kind && event.Reason == ic.reason &&
-		strings.Contains(event.Message, ic.keyWord) {
+		strings.Contains(strings.ToLower(event.Message), ic.keyWord) {
 		var eventAlert = models.PodEventAlert{
 			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,

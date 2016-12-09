@@ -25,14 +25,14 @@ func NewInsufficientMemory() models.EventHandler {
 		reason: PodInsufficientMemoryReason,
 		// TODO(andyxning): This should be replaced with more scalable reference instead of hard
 		// code.
-		keyWord:          "Insufficient Memory",
+		keyWord:          "insufficient memory",
 		alertEventReason: "pod_insufficientmemory",
 	}
 }
 
 func (im insufficientMemory) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == im.kind && event.Reason == im.reason &&
-		strings.Contains(event.Message, im.keyWord) {
+		strings.Contains(strings.ToLower(event.Message), im.keyWord) {
 		var eventAlert = models.PodEventAlert{
 			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,

@@ -90,11 +90,11 @@ func StartMain(sinks []models.Sink, eventChan <-chan *api.Event, stopWG *sync.Wa
 					stopWG.Add(1)
 
 					// range variable eventHandler can not be captured by func literal
-					go func(eventHandler models.EventHandler) {
+					go func(eventHandler models.EventHandler, event *api.Event) {
 						defer stopWG.Done()
 
 						eventHandler.HandleEvent(sinks, event)
-					}(eventHandler)
+					}(eventHandler, event)
 				}
 			}
 		}

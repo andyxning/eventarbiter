@@ -7,6 +7,7 @@ import (
 	"github.com/andyxning/eventarbiter/cmd/eventarbiter/signal"
 	"github.com/andyxning/eventarbiter/handler"
 	_ "github.com/andyxning/eventarbiter/handler/node"
+	_ "github.com/andyxning/eventarbiter/handler/npd"
 	_ "github.com/andyxning/eventarbiter/handler/pod"
 	"github.com/andyxning/eventarbiter/models"
 	"github.com/andyxning/eventarbiter/sink/callback"

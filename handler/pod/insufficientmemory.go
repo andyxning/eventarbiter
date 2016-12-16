@@ -33,6 +33,13 @@ func NewInsufficientMemory() models.EventHandler {
 func (im insufficientMemory) HandleEvent(sinks []models.Sink, event *api.Event) {
 	if strings.ToUpper(event.InvolvedObject.Kind) == im.kind && event.Reason == im.reason &&
 		strings.Contains(strings.ToLower(event.Message), im.keyWord) {
+		// Currently in Kubernetes 1.4.0, message for insufficient cpu is proportional with
+		// the number of minion machines. This may be very large and longer information is useless.
+		// So, we can just truncate it to maxMessageLength.
+		// See https://gist.github.com/andyxning/8065dc35889f07073e129bb75a6e57fe for an example.
+		if len(event.Message) >= maxMessageLength {
+			event.Message = event.Message[:maxMessageLength]
+		}
 		var eventAlert = models.PodEventAlert{
 			Kind:          strings.ToUpper(event.InvolvedObject.Kind),
 			Name:          event.InvolvedObject.Name,

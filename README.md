@@ -24,7 +24,6 @@ There are already some projects to do somthing about Kubernetes events.
 
 ### Event Alarm Reason
 --
----
 |Event|Description|
 |-----|-----------|
 |node_notready|occurs when a `minion`(`kubelet`) node changed to `NotReady`|
@@ -34,8 +33,8 @@ There are already some projects to do somthing about Kubernetes events.
 |pod_backoff| occurs when an container in a `pod` can not be started normally. In our situation, this may be caused by the image can not be pulled or the image specified do not exist|
 |pod_failed| occurs when an container in the `pod` can not be started normally. In our situation, this may be caused by the image can not be pulled or the image specified do not exist|
 |pod_failedsync|occurs when an container in the `pod` can not be started normally. In our situation, this may be caused by the image can not be pulled or the image specified do not exist|
-|pod_insufficientcpu| occurs when an application can not be scheduled du to insufficient cpu in the cluster|
-|pod_insufficientmemory|occurs when an application can not be scheduled du to insufficient memory in the cluster|
+|pod_insufficientcpumemory| occurs when an application can not be scheduled du to insufficient
+cpu or memory in the cluster|
 |pod_unhealthy|occurs when the pod health check failed|
 |npd_oomkilling|occurs when OOM happens|
 |npd_taskhung|occurs when task hangs for `/proc/sys/kernel/hung_task_timeout_secs`(mainly used for `docker ps` hung)|

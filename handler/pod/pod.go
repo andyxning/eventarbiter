@@ -1,5 +1,5 @@
 package pod
 
 const (
-	maxMessageLength = 255
+	maxMessageLength = 512
 )

@@ -6,6 +6,7 @@ import (
 	"github.com/andyxning/eventarbiter/models"
 	"k8s.io/kubernetes/pkg/api"
 	"strings"
+	"github.com/golang/glog"
 )
 
 const (
@@ -34,7 +35,7 @@ func NewInsufficientCPUMemory() models.EventHandler {
 }
 
 func (icm insufficientCPUMemory) HandleEvent(sinks []models.Sink, event *api.Event) {
-	if strings.ToUpper(event.InvolvedObject.Kind) == icm.kind && event.Reason == icm.reason {
+	if strings.ToUpper(event.InvolvedObject.Kind) == icm.kind && event.Reason == icm.originalReason {
 		for _, keyWord := range icm.keyWords {
 			if strings.Contains(strings.ToLower(event.Message), keyWord) {
 				// Currently in Kubernetes 1.4.0, message for insufficient cpu is proportional with
@@ -42,6 +43,7 @@ func (icm insufficientCPUMemory) HandleEvent(sinks []models.Sink, event *api.Eve
 				// So, we can just truncate it to maxMessageLength.
 				// See https://gist.github.com/andyxning/8065dc35889f07073e129bb75a6e57fe for an example.
 				if len(event.Message) >= maxMessageLength {
+					glog.Warningf("truncate event message. %s", event.Message)
 					event.Message = event.Message[:maxMessageLength]
 				}
 

@@ -4,9 +4,9 @@ import (
 	"github.com/andyxning/eventarbiter/cmd/eventarbiter/conf"
 	"github.com/andyxning/eventarbiter/handler"
 	"github.com/andyxning/eventarbiter/models"
+	"github.com/golang/glog"
 	"k8s.io/kubernetes/pkg/api"
 	"strings"
-	"github.com/golang/glog"
 )
 
 const (
@@ -72,7 +72,7 @@ func (icm insufficientCPUMemory) AlertEventReason() string {
 }
 
 func (icm insufficientCPUMemory) Reason() string {
-	return icm.reason
+	return icm.originalReason
 }
 
 func init() {

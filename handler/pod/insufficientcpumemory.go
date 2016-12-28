@@ -17,7 +17,7 @@ type insufficientCPUMemory struct {
 	kind             string
 	reason           string
 	originalReason   string
-	keyWords         string
+	keyWords         []string
 	alertEventReason string
 }
 

@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/andyxning/eventarbiter.svg?branch=master)](https://travis-ci.org/andyxning/eventarbiter)
 
 ### eventarbiter
-
+----
 Kubernetes emits events when some important things happend internally.
 
 For example, when the CPU or Memory pool Kubernetes cluster provides can not satisfy the request application made, an `FailedScheduling` event will be emitted and the message contained in the event will explain what is the reason for the `FailedScheduling` with event message like `pod (busybox-controller-jdaww) failed to fit in any node\nfit failure on node (192.168.0.2): Insufficient cpu\n` or `pod (busybox-controller-jdaww) failed to fit in any node\nfit failure on node (192.168.0.2): Insufficient memory\n`.
@@ -17,13 +17,13 @@ Something that can not be handled by monitor can be handled by events. `eventarb
 
 
 ### Comparison
-
+----
 There are already some projects to do somthing about Kubernetes events.
 * [Heapster](https://github.com/kubernetes/heapster) has a component `eventer`. `eventer` can watch for events for a Kubernetes cluster and supports `ElasticSearch`, `InfluxDB` or `log` sink to store them. It is really useful for collecting and storing Kubernetes events. We can monitor what happends in the cluster without logging into each `minion`. `eventarbiter` also import the logic of watching Kubernetes from `eventer`.
 * [kubewatch](https://github.com/skippbox/kubewatch) can only watch for Kubernetes events about the creation, update and delete for Kubernetes `object`, such as `Pod` and `ReplicationController`. `kubewatch` can also send an alarm through `slack`. However, `kubewatch` is limited in the events can be watched and the limited alarm tunnel. With `eventarbiter`'s `callback` sink, you can `POST` the event alarm to a `transfer station`. And after that you can do anything with the event alarm, such as sending it with email or sending it with `PagerDuty`. It is on your control. :)
 
 ### Event Alarm Reason
-
+----
 |Event|Description|
 |-----|-----------|
 |node_notready|occurs when a `minion`(`kubelet`) node changed to `NotReady`|
@@ -39,11 +39,11 @@ There are already some projects to do somthing about Kubernetes events.
 |npd_taskhung|occurs when task hangs for `/proc/sys/kernel/hung_task_timeout_secs`(mainly used for `docker ps` hung)|
 
 #### Note
-
+----
 * For more info about `npd_oomkilling` and `npd_taskhung`, you should deploy [`node-problem-detector`](https://github.com/kubernetes/node-problem-detector) in your Kubernetes cluster.
 
 ### Usage
-
+----
 Just like `eventer` in `Heapster` project. `eventarbiter` supports the `source` and `sink` command line arguments.
 
 * Argument
@@ -67,6 +67,6 @@ The normal commands to start an instance of `eventerarbiter` will be
   * There is also a faked http service in `script/dev` listening in `3086` with `/` endpoints.
 
 ### Build
-
+----
 * `make build`
   * **Note: `eventarbiter` requires Go1.7**
